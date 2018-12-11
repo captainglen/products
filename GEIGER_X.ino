@@ -24,7 +24,7 @@ void setup() {
 
 void loop() {
   unsigned long currentMilis = millis();
-  if (currentMilis - previousUpdate >= 20000) {
+  if (currentMilis - previousUpdate >= 20000) { //change for desired screen update rate in milliseconds
     previousUpdate = currentMilis, update = counts - previouscounts, previouscounts = counts;
     float ET = millis();	
     lcd.clear();
@@ -34,7 +34,7 @@ void loop() {
     lcd.setCursor(0,1);
     lcd.print("CPM ");
     lcd.setCursor(8,1);
-    lcd.print(update * 3);
+    lcd.print(update * 3); //change to 60,000/ desired update rate in milliseconds
   }
 }
 
