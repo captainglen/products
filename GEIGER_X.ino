@@ -9,7 +9,6 @@ long update=0;
 long counts=0;
 long previouscounts=0;
 long previousUpdate=0;
-long Interval=15000;
 
 void setup() {
   Serial.begin(9600);
@@ -17,14 +16,17 @@ void setup() {
   pinMode(geigerPin, INPUT);
   pinMode(buzzerPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
- 
   digitalWrite(geigerPin, HIGH);
   attachInterrupt(0, event, CHANGE);
+  lcd.clear();
+  lcd.print("uSv/h");
+  lcd.setCursor(0,1);
+  lcd.print("CPM ");
 }
 
 void loop() {
   unsigned long currentMilis = millis();
-  if (currentMilis - previousUpdate >= 20000) { //change for desired screen update rate in milliseconds
+  if (currentMilis - previousUpdate >= 10000) { //change for desired screen update rate in milliseconds
     previousUpdate = currentMilis, update = counts - previouscounts, previouscounts = counts;
     float ET = millis();	
     lcd.clear();
@@ -34,7 +36,7 @@ void loop() {
     lcd.setCursor(0,1);
     lcd.print("CPM ");
     lcd.setCursor(8,1);
-    lcd.print(update * 3); //change to 60,000/ desired update rate in milliseconds
+    lcd.print(update * 6); //change to 60,000/ desired update rate in milliseconds
   }
 }
 
